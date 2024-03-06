@@ -2,6 +2,7 @@ package com.project.billboardusagesystem.controller;
 
 import com.project.billboardusagesystem.model.Billboard;
 import com.project.billboardusagesystem.service.BillboardService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,15 +14,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/billboards")
+@AllArgsConstructor
 public class BillboardController {
 
-    @Autowired
-    private BillboardService billboardService;
-
-    @GetMapping()
-    public List<Billboard> findAllBillboard() {
-        return billboardService.findAllBillboard();
-    }
+    private final BillboardService billboardService;
 
     @GetMapping("/welcome")
     public String welcome() {
@@ -29,12 +25,12 @@ public class BillboardController {
     }
 
     @GetMapping("/all-billboard")
-    public List<Billboard> allBillboards() {
-        return billboardService.allBillboards();
+    public List<Billboard> findAllBillboards() {
+        return billboardService.findAllBillboard();
     }
 
     @GetMapping("/{id}")
     public Billboard billboardById(@PathVariable int id) {
-        return billboardService.billboardByID(id);
+        return billboardService.findById(id);
     }
 }

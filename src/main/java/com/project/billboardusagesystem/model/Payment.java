@@ -3,19 +3,18 @@ package com.project.billboardusagesystem.model;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
-@Builder
+@Table(name = "payment")
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int paymentId;
+    @Column(name = "payment_id")
+    private int id;
     private int amount;
     private LocalDate paymentDate;
     private String cardType;
@@ -28,4 +27,6 @@ public class Payment {
     private String numberAddInfo;
     private String addressAddInfo;
     private int index;
+    @OneToMany(mappedBy = "payment")
+    private List<Rental> rentals;
 }

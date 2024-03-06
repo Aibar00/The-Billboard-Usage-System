@@ -2,20 +2,21 @@ package com.project.billboardusagesystem.model;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
-@Builder
+@Table(name = "billboard")
 public class Billboard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int billboardId;
+    @Column(name = "billboard_id")
+    private int id;
     private String location;
     private String status;
     private LocalDate endDate;
+    @OneToMany(mappedBy = "billboard")
+    private List<Rental> rentals;
 }

@@ -3,23 +3,29 @@ package com.project.billboardusagesystem.model;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Data
-@Builder
+@Table(name = "rental")
 public class Rental {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int rentalId;
-    private int billboardId;
-    private int clientId;
-    private int packageId;
-    private int paymentId;
+    @Column(name = "rental_id")
+    private int id;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
+    @ManyToOne
+    @JoinColumn(name = "billboard_id")
+    private Billboard billboard;
+    @ManyToOne
+    @JoinColumn(name = "payment_id")
+    private Payment payment;
+    @ManyToOne
+    @JoinColumn(name = "price_package_id")
+    private PricePackage pricePackage;
     private LocalDate startDate;
     private LocalDate endDate;
 }

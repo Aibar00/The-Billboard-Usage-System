@@ -3,19 +3,20 @@ package com.project.billboardusagesystem.model;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
-@Builder
+@Table(name = "price_package")
 public class PricePackage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int packageId;
-    private String packageName;
+    @Column(name = "price_package_id")
+    private int id;
+    private String name;
     private int price;
     private String type;
+    @OneToMany(mappedBy = "price_package")
+    private List<Rental> rentals;
 }
