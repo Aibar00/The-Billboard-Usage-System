@@ -4,6 +4,8 @@ import com.project.billboardusagesystem.model.UserEntity;
 import com.project.billboardusagesystem.repository.InMemoryUserDAO;
 import com.project.billboardusagesystem.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,8 +22,13 @@ public class InMemoryUserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<UserEntity> findByEmail(String email){
+        return repository.findByEmail(email);
+    }
+
+    @Override
     public List<UserEntity> findAllUser() {
-        return repository.findAllUsers();
+        return repository.findAllUser();
     }
 
     @Override
@@ -37,5 +44,10 @@ public class InMemoryUserServiceImpl implements UserService {
     @Override
     public void deleteUser(Long id) {
         repository.deleteUser(id);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
     }
 }

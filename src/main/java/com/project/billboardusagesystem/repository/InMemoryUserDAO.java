@@ -16,13 +16,18 @@ public class InMemoryUserDAO {
     private final List<UserEntity> USERS = new ArrayList<>();
 
     public Optional<UserEntity> findById(Long id) {
-        return Optional.ofNullable(USERS.stream()
-                .filter(element -> Objects.equals(element.getId(), id))
-                .findFirst()
-                .orElse(null));
+        return USERS.stream()
+                .filter(user -> Objects.equals(user.getId(), id))
+                .findFirst();
     }
 
-    public List<UserEntity> findAllUsers() {
+    public Optional<UserEntity> findByEmail(String email) {
+        return USERS.stream()
+                .filter(user -> Objects.equals(user.getEmail(), email))
+                .findFirst();
+    }
+
+    public List<UserEntity> findAllUser() {
         return USERS;
     }
 
@@ -33,7 +38,7 @@ public class InMemoryUserDAO {
 
     public UserEntity updateUser(UserEntity user) {
         var userIndex = IntStream.range(0, USERS.size())
-                .filter(index -> USERS.get(index).getId() == user.getId())
+                .filter(index -> Objects.equals(USERS.get(index).getId(), user.getId()))
                 .findFirst()
                 .orElse(-1);
         if(userIndex > -1) {
@@ -44,9 +49,6 @@ public class InMemoryUserDAO {
     }
 
     public void deleteUser(Long id) {
-        var user = findById(id);
-        if(user != null){
-            USERS.remove(user);
-        }
+        findById(id).ifPresent(USERS::remove);
     }
 }

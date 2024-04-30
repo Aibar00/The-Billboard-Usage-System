@@ -14,7 +14,7 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "payment_id")
-    private int id;
+    private Long id;
     private int amount;
     private LocalDate paymentDate;
     private String cardType;
@@ -26,7 +26,7 @@ public class Payment {
     private String cityAddInfo;
     private String numberAddInfo;
     private String addressAddInfo;
-    private int index;
+    private int indexAddInfo;
     @OneToMany(mappedBy = "payment")
     private List<Rental> rentals;
 }

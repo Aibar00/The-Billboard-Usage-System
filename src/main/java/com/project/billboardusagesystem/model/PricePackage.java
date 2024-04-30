@@ -13,10 +13,10 @@ public class PricePackage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "price_package_id")
-    private int id;
+    private Long id;
     private String name;
     private int price;
     private String type;
-    @OneToMany(mappedBy = "price_package")
+    @OneToMany(mappedBy = "pricePackage")
     private List<Rental> rentals;
 }

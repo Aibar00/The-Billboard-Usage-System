@@ -3,6 +3,8 @@ package com.project.billboardusagesystem.controller;
 import com.project.billboardusagesystem.model.UserEntity;
 import com.project.billboardusagesystem.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,15 +13,25 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/v1/users")
 @AllArgsConstructor
+@CrossOrigin
 public class UserController {
     private final UserService service;
 
     @GetMapping("/{id}")
-    public Optional<UserEntity> findByID(@PathVariable Long id){
-        return service.findById(id);
+    public ResponseEntity<UserEntity> findByID(@PathVariable Long id){
+        return service.findById(id)
+                .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping
+    @GetMapping("/{email}")
+    public ResponseEntity<UserEntity> findByEmail(@PathVariable String email){
+        return service.findByEmail(email)
+                .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/all_user")
     public List<UserEntity> findAllUsers(){
         return service.findAllUser();
     }
@@ -38,4 +50,6 @@ public class UserController {
     public void deleteUser(@PathVariable Long id){
         service.deleteUser(id);
     }
+
+
 }

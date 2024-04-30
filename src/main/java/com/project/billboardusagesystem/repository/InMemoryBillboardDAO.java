@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 @Repository
@@ -12,11 +14,10 @@ public class InMemoryBillboardDAO {
 
     private final List<Billboard> BILLBOARDS = new ArrayList<>();
 
-    public Billboard findById(int id) {
+    public Optional<Billboard> findById(Long id) {
         return BILLBOARDS.stream()
-                .filter(element -> element.getId() == id)
-                .findFirst()
-                .orElse(null);
+                .filter(element -> Objects.equals(element.getId(), id))
+                .findFirst();
     }
 
     public List<Billboard> findAllBillboard() {
@@ -30,7 +31,7 @@ public class InMemoryBillboardDAO {
 
     public Billboard updateBillboard(Billboard billboard) {
         var billboardIndex = IntStream.range(0, BILLBOARDS.size())
-                .filter(index -> BILLBOARDS.get(index).getId() == billboard.getId())
+                .filter(index -> Objects.equals(BILLBOARDS.get(index).getId(), billboard.getId()))
                 .findFirst()
                 .orElse(-1);
         if(billboardIndex > -1) {
@@ -40,10 +41,7 @@ public class InMemoryBillboardDAO {
         return null;
     }
 
-    public void deleteBillboard(int id) {
-        var billboard = findById(id);
-        if(billboard != null){
-            BILLBOARDS.remove(billboard);
-        }
+    public void deleteBillboard(Long id) {
+        findById(id).ifPresent(BILLBOARDS::remove);
     }
 }

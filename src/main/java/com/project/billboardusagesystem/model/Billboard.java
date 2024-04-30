@@ -13,7 +13,7 @@ public class Billboard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "billboard_id")
-    private int id;
+    private Long id;
     private String location;
     private String status;
     private LocalDate endDate;

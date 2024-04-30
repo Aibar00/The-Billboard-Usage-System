@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name="user")
+@Table(name="user_entity")
 @NoArgsConstructor
 public class UserEntity {
     @Id
@@ -16,14 +16,13 @@ public class UserEntity {
     private Long id;
     private String name;
     private String surname;
-    @NonNull
     private String username;
+    @NonNull
+    private String email;
     @NonNull
     private String password;
     private String contactInfo;
+    private String role;
     @OneToMany(mappedBy = "user")
     private List<Rental> rentals;
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
 }

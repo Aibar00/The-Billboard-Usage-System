@@ -13,7 +13,7 @@ public class Rental {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "rental_id")
-    private int id;
+    private Long id;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
