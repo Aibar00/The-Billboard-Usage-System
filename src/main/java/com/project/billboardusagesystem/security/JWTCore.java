@@ -14,9 +14,16 @@ public class JWTCore {
     @Value("${jwt.lifetime}")
     private int lifetime;
 
+    public String getSecret(){
+        return secret;
+    }
+
     public String generateToken(Authentication authentication){
         UserDetailsImpl userDetails = (UserDetailsImpl)authentication.getPrincipal();
-        return Jwts.builder().setSubject((userDetails.getUsername())).setIssuedAt(new Date())
+        return Jwts.builder().
+                setSubject((userDetails.getUsername()))
+                .claim("role", userDetails.getRole())
+                .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + lifetime))
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();

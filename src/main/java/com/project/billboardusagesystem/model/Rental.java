@@ -26,6 +26,4 @@ public class Rental {
     @ManyToOne
     @JoinColumn(name = "price_package_id")
     private PricePackage pricePackage;
-    private LocalDate startDate;
-    private LocalDate endDate;
 }

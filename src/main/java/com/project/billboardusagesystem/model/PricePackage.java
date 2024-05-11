@@ -16,7 +16,7 @@ public class PricePackage {
     private Long id;
     private String name;
     private int price;
-    private String type;
+    private String description;
     @OneToMany(mappedBy = "pricePackage")
     private List<Rental> rentals;
 }
