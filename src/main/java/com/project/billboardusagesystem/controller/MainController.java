@@ -30,4 +30,11 @@ public class MainController {
             return null;
         return principal.getName();
     }
+
+    @GetMapping("/user/email")
+    public String userAccessEmail(Principal principal){
+        if(principal == null)
+            return null;
+        return principal.getName();
+    }
 }

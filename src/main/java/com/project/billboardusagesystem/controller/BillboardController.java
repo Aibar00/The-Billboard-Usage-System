@@ -44,3 +44,4 @@ public class BillboardController {
         billboardService.deleteBillboard(id);
     }
 }
+
